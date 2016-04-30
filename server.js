@@ -1,5 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
+var _ = require("underscore");
 var app = express();
 var port = process.env.PORT || 3000;
 var todos = [];
@@ -16,15 +17,11 @@ app.get("/todos", function(req, res) {
 });
 
 app.get("/todos/:id", function(req, res) {
-	var finded = false;
+	var matchedTodo = _.findWhere(todos, {id: parseInt(req.params.id)});
 
-	for (i = 0; i < todos.length; i++) {
-		if (todos[i].id == req.params.id) {
-				finded = true;
-				res.json(todos[i]);
-			}
-	}
-	if (finded == false)
+	if (matchedTodo)
+		res.json(matchedTodo);
+	else
 		res.status(404).send();
 });
 
