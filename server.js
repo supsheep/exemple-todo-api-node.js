@@ -2,7 +2,8 @@ var express = require("express");
 var app = express();
 var port = process.env.PORT || 3000;
 var todos = [{id: 1, description: "meet mom for lunch", completed: false},
-{id: 2, description: "go to market", completed: false}];
+{id: 2, description: "go to market", completed: false},
+{id: 3, description: "go to work", completed: true}];
 
 app.get("/", function(req, res) {
 	res.send("Todo API root");
