@@ -38,6 +38,17 @@ app.post("/todos", function(req, res) {
 	res.json(todos[todos.length - 1]);
 });
 
+app.delete("/todos/:id", function(req, res) {
+	var matchedTodo = _.findWhere(todos, {id: parseInt(req.params.id)});
+	
+	if (matchedTodo === undefined)
+		res.status(404).send();
+	else {
+		todos = _.without(todos, matchedTodo);
+		res.status(200).send();
+	}
+});
+
 app.listen(port, function() {
 	console.log("express server started on " + port);
 });
